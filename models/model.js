@@ -9,9 +9,9 @@ var knex = require('knex')({
   })
 
 
-// knex.schema.createTable('bidder', (table) => {
-//     table.increments('bidder_id').primary();
-//     table.integer('auction_id');
+// knex.schema.createTable('Auction', (table) => {
+//     table.increments('auction_id').primary();
+//     table.string('auction_name');
 //     table.float('price');
 //     // table.string('bidder_id').unique();
 //     }).then(()=>{
@@ -19,7 +19,19 @@ var knex = require('knex')({
 // }).catch((err)=>{  
 //     console.log(err);
     
-// })
-     
+// }) 
 
+
+// knex.schema.createTable('bidder',(table) => {
+//   table.integer('auction_id')
+//   table.increments('bidder_id')
+//   table.float('bid_value')
+// })
+//   .then(() => {
+//       console.log("table created")
+//   })
+//   .catch((err) => { console.log(err); throw err })
+
+
+ 
 module.exports=knex;
