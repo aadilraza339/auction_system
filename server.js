@@ -3,10 +3,8 @@ const app = express();
 app.use(express.json());
 
 
-
-
 app.use('/',auction=express.Router());
-require('./auction')(auction)
+require('./Routes/auction')(auction)
 
 
 app.listen(8000,()=>{

@@ -32,6 +32,18 @@ var knex = require('knex')({
 //   })
 //   .catch((err) => { console.log(err); throw err })
 
+// knex.schema.createTable('soldOut',(table) => {
+//     table.integer('auction_id')
+//     table.integer('bidder_id')
+//     table.float('max_value')
+//     table.string('name')
+//   })
+//     .then(() => {
+//         console.log("table created")
+//     })
+//     .catch((err) => { console.log(err); throw err })
+  
+
 
  
 module.exports=knex;
