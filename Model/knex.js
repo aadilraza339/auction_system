@@ -1,49 +1,43 @@
-var knex = require('knex')({
-    client:"mysql",
-    connection:{
-        user:"root",
-        host:"localhost",
-        password:"'",
-        database:"auction"
-    }
-  })
+var knex = require('../conection.js');
 
 
-// knex.schema.createTable('Auction', (table) => {
-//     table.increments('auction_id').primary();
-//     table.string('auction_name');
-//     table.float('price');
-//     // table.string('bidder_id').unique();
-//     }).then(()=>{
-//     console.log('crated table');
-// }).catch((err)=>{  
-//     console.log(err);
-    
-// }) 
+let insertData = (auctionDetail)=>{
+   return knex('Auction').insert(auctionDetail)
+}
 
+let bidder = ()=>{
+    return  knex('Auction').max('auction_id as auction_id')
 
-// knex.schema.createTable('bidder',(table) => {
-//   table.integer('auction_id')
-//   table.increments('bidder_id')
-//   table.float('bid_value')
-// })
-//   .then(() => {
-//       console.log("table created")
-//   })
-//   .catch((err) => { console.log(err); throw err })
+}
 
-// knex.schema.createTable('soldOut',(table) => {
-//     table.integer('auction_id')
-//     table.integer('bidder_id')
-//     table.float('max_value')
-//     table.string('name')
-//   })
-//     .then(() => {
-//         console.log("table created")
+let maxDatas = ()=>{
+    return knex('bidder').max('bid_value as max_value').max('bidder_id as bidder_id').max('auction_id as auction_id')
+}
+
+let auctionName = (auction_id)=>{
+    return knex('Auction').select('auction_name').where('auction_id',auction_id)
+}
+
+let nameInsert = (auction_id, bidder_id, max, auction_name )=>{
+    return  knex('soldOut')
+            .insert({
+            "auction_id":auction_id,
+            "bidder_id":bidder_id,
+            "max_value":max,
+            "name":auction_name
+    })
+}
+
+let getData  = (id)=>{
+   return knex('soldOut').select('*').where('auction_id',id)
+}
+
+// let bid_value = (bid_value)=>{
+//     return  knex('bidder')
+//     .insert({
+//     "auction_id":data[0]['auction_id'],
+//     "bid_value":bid_value
 //     })
-//     .catch((err) => { console.log(err); throw err })
-  
+// }
 
-
- 
-module.exports=knex;
+module.exports={insertData,bidder,maxDatas, auctionName, nameInsert, getData}
